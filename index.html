@@ -1,0 +1,137 @@
+{\rtf1\ansi\ansicpg949\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww28600\viewh14860\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html>\
+<head>\
+  <base target="_top">\
+  <style>\
+    .container \{\
+      width: 80%;\
+      margin: 20px auto;\
+      padding: 20px;\
+      border: 1px solid #ccc;\
+      border-radius: 5px;\
+    \}\
+    label \{\
+      display: block;\
+      margin-bottom: 5px;\
+      font-weight: bold;\
+    \}\
+    input[type="text"],\
+    input[type="date"],\
+    input[type="time"],\
+    input[type="number"] \{\
+      width: 100%;\
+      padding: 8px;\
+      margin-bottom: 10px;\
+      border: 1px solid #ddd;\
+      border-radius: 3px;\
+      box-sizing: border-box;\
+    \}\
+    button \{\
+      background-color: #007bff;\
+      color: white;\
+      padding: 10px 15px;\
+      border: none;\
+      border-radius: 3px;\
+      cursor: pointer;\
+      font-size: 16px;\
+    \}\
+    button:hover \{\
+      background-color: #0056b3;\
+    \}\
+    .success-message \{\
+      margin-top: 20px;\
+      padding: 10px;\
+      background-color: #d4edda;\
+      color: #155724;\
+      border: 1px solid #c3e6cb;\
+      border-radius: 3px;\
+    \}\
+    .error-message \{\
+      margin-top: 20px;\
+      padding: 10px;\
+      background-color: #f8d7da;\
+      color: #721c24;\
+      border: 1px solid #f5c6cb;\
+      border-radius: 3px;\
+    \}\
+  </style>\
+</head>\
+<body>\
+  <div class="container">\
+    <h1>\uc0\u52264 \u47049  \u49888 \u52397 </h1>\
+    <form id="vehicle-request-form">\
+      <div>\
+        <label for="applicant-name">\uc0\u49888 \u52397 \u51088  \u51060 \u47492 :</label>\
+        <input type="text" id="applicant-name" name="applicant-name" required>\
+      </div>\
+      <div>\
+        <label for="start-date">\uc0\u49888 \u52397  \u45216 \u51676  (\u52636 \u48156 \u51068 ):</label>\
+        <input type="date" id="start-date" name="start-date" required>\
+      </div>\
+      <div>\
+        <label for="end-date">\uc0\u49888 \u52397  \u45216 \u51676  (\u46020 \u52265 \u51068 ):</label>\
+        <input type="date" id="end-date" name="end-date">\
+      </div>\
+      <div>\
+        <label for="departure-time">\uc0\u52636 \u48156  \u49884 \u44036 :</label>\
+        <input type="time" id="departure-time" name="departure-time" required>\
+      </div>\
+      <div>\
+        <label for="arrival-time">\uc0\u46020 \u52265  \u49884 \u44036 :</label>\
+        <input type="time" id="arrival-time" name="arrival-time">\
+      </div>\
+      <div>\
+        <label for="passenger-count">\uc0\u47751  \u47749 \u51060  \u44032 \u49884 \u45208 \u50836 ?</label>\
+        <input type="number" id="passenger-count" name="passenger-count" min="1" required>\
+      </div>\
+      <div>\
+        <label for="destination">\uc0\u50612 \u46356 \u47196  \u44032 \u49884 \u45208 \u50836 ?</label>\
+        <input type="text" id="destination" name="destination" required>\
+      </div>\
+      <div>\
+        <label for="vehicle-count">\uc0\u47751  \u45824 \u44032  \u54596 \u50836 \u54616 \u49888 \u44032 \u50836 ?</label>\
+        <input type="number" id="vehicle-count" name="vehicle-count" min="1" value="1" required>\
+      </div>\
+      <div>\
+        <label for="purpose">\uc0\u50857 \u46020 \u44032  \u50612 \u46523 \u44172  \u46104 \u49884 \u45208 \u50836 ?</label>\
+        <input type="text" id="purpose" name="purpose" required>\
+      </div>\
+      <button type="submit">\uc0\u49888 \u52397 \u54616 \u44592 </button>\
+    </form>\
+    <div id="message-container" style="margin-top: 20px;"></div>\
+  </div>\
+\
+  <script>\
+    document.getElementById('vehicle-request-form').addEventListener('submit', function(event) \{\
+      event.preventDefault();\
+      var formData = new FormData(this);\
+      var data = \{\};\
+      formData.forEach(function(value, key)\{\
+          data[key] = value;\
+      \});\
+\
+      var xhr = new XMLHttpRequest();\
+      xhr.open('POST', google.script.run.getScriptUrl(), true);\
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');\
+      xhr.onload = function() \{\
+        document.getElementById('message-container').innerHTML = '<div class="success-message">' + xhr.responseText + '</div>';\
+        document.getElementById('vehicle-request-form').reset();\
+      \};\
+      xhr.onerror = function() \{\
+        document.getElementById('message-container').innerHTML = '<div class="error-message">\uc0\u49888 \u52397 \u50640  \u49892 \u54056 \u54664 \u49845 \u45768 \u45796 . \u45796 \u49884  \u49884 \u46020 \u54644 \u51452 \u49464 \u50836 .</div>';\
+      \};\
+      var encodedData = Object.keys(data).map(function(k) \{\
+          return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);\
+      \}).join('&');\
+      xhr.send(encodedData);\
+    \});\
+  </script>\
+</body>\
+</html>}

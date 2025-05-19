@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>안산교회 차량예약시스템</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>안산교회 차량예약시스템</h1>
+
+        <section class="calendar-section">
+            <h2>1. 구글 캘린더</h2>
+            <p>현재 예약 상황을 확인해 보세요.</p>
+            <iframe src="https://calendar.google.com/calendar/embed?src=10263285edd19de93d9af3612d15a7c464b99f93d10f306e9a8576cbe181efe4@group.calendar.google.com&ctz=Asia%2FSeoul&mode=month" 
+                    style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+            <p>※ 캘린더는 실시간으로 업데이트되며, 스프레드시트의 '캘린더 동기화' 체크박스 활성화 후 반영됩니다.</p>
+        </section>
+
+        <form id="vehicleReservationForm" class="reservation-form">
+            <h2>차량 예약 신청</h2>
+
+            <div class="form-group">
+                <label for="applicantName">2. 신청자 성함</label>
+                <input type="text" id="applicantName" name="applicantName" required>
+            </div>
+
+            <div class="form-group">
+                <label>3. 출발 날짜와 시간</label>
+                <div class="datetime-group">
+                    <input type="date" id="departureDate" required>
+                    <select id="departureHour" required>
+                        </select>
+                    <select id="departureMinute" required>
+                        <option value="00">00분</option>
+                        <option value="10">10분</option>
+                        <option value="20">20분</option>
+                        <option value="30">30분</option>
+                        <option value="40">40분</option>
+                        <option value="50">50분</option>
+                    </select>
+                </div>
+                <input type="hidden" id="departureDateTime" name="departureDateTime">
+            </div>
+
+            <div class="form-group">
+                <label>4. 도착 날짜와 시간</label>
+                <div class="datetime-group">
+                    <input type="date" id="arrivalDate" required>
+                    <select id="arrivalHour" required>
+                        </select>
+                    <select id="arrivalMinute" required>
+                        <option value="00">00분</option>
+                        <option value="10">10분</option>
+                        <option value="20">20분</option>
+                        <option value="30">30분</option>
+                        <option value="40">40분</option>
+                        <option value="50">50분</option>
+                    </select>
+                </div>
+                <input type="hidden" id="arrivalDateTime" name="arrivalDateTime">
+            </div>
+
+            <div class="form-group">
+                <label for="numberOfPeople">5. 몇 명이 가시나요?</label>
+                <input type="number" id="numberOfPeople" name="numberOfPeople" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="destination">6. 어디로 가시나요?</label>
+                <input type="text" id="destination" name="destination" required>
+            </div>
+
+            <div class="form-group">
+                <label for="numberOfVans">7. 승합차 몇 대가 필요하신가요?</label>
+                <select id="numberOfVans" name="numberOfVans" required>
+                    <option value="0대">0대</option> 
+                    <option value="1대">1대</option>
+                    <option value="2대">2대</option>
+                    <option value="3대">3대</option>
+                    <option value="4대">4대</option>
+                    <option value="5대">5대</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="busNeeded">8. 버스가 필요하실까요?</label>
+                <select id="busNeeded" name="busNeeded" required>
+                    <option value="">선택하세요</option>
+                    <option value="아니요">아니요</option>
+                    <option value="1대">1대</option>
+                    <option value="2대">2대</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="purpose">9. 용도가 어떻게 되시나요? 예) 시선부 수련회</label>
+                <input type="text" id="purpose" name="purpose" required>
+            </div>
+
+            <section class="agreement-section">
+                <h2>안내사항 및 동의</h2>
+                <div class="agreement-content">
+                    <p>교회승합차 예약 및 배차에 대해 안내해 드리겠습니다.</p>
+                    <p>교회차량은 사용 용도에 따라 교회지원과 사용자 부담으로 구분합니다.</p>
+                    <h3>교회지원</h3>
+                    <ul>
+                        <li>회/부서/교구/구역에서 봉사와 교회 공식일정을 위한 목적으로 차량 이용시</li>
+                        <li>차량 유류비, 고속도로 톨게이트 비용 교회에서 지원</li>
+                    </ul>
+                    <h3>사용자부담</h3>
+                    <ul>
+                        <li>회/부서/교구/구역에서 교회 비공식일정을 위한 목적으로 차량 이용시</li>
+                        <li>차량 유류비, 고속도로 톨게이트 비용 사용자부담</li>
+                    </ul>
+                    <p>※ 교회 공식일정 : 년간/월간 계획 및 교회소식지에 광고된 교회의 각종 행사나 모임을 말함</p>
+                    <p>3) 차량 매뉴얼에 의해 교회 공식일정 및 우선순위에 따라 예약 및 배차가 변경될 경우 바로 연락드리도록 하겠습니다.</p>
+                    <p>해당사항 확인하신 후 아래 체크박스에 체크하고 제출 버튼을 눌러주시면 신청이 접수됩니다.</p>
+                </div>
+                <div class="form-group agreement-checkbox-group">
+                    <input type="checkbox" id="agreement" name="agreement" required>
+                    <label for="agreement">위 내용을 확인하였으며, 이에 동의합니다.</label>
+                </div>
+            </section>
+            
+            <button type="submit" class="submit-button">신청하기</button>
+             <div id="message" class="message"></div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
